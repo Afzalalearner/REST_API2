@@ -123,6 +123,27 @@ const index=books.indexOf(book)
     res.send(books)
 }
 
+
+const patch=(req,res)=>{
+    const id=+req.params.id;
+    const book1=req.body;
+
+    const book=books.find(books=>books.id===id)
+    if(!book){
+        res.status(404)
+        res.send('Invalid Id')
+        return;
+    }
+
+    for(let key in book){
+        if(book1[key]){
+        book[key]=book1[key]
+        }
+    }
+        res.status(200)
+        res.send('Record Updated')
+    }
+
 // function validator(book){
 //     const schema=Joi.object({
 //         name:Joi.string().min(3).max(8).required(),
@@ -138,4 +159,5 @@ module.exports={
     post,
     put,
     remove,
+    patch,
 }
